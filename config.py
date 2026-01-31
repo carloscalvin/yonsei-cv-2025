@@ -33,5 +33,6 @@ model_cfg = SimpleNamespace(**{})
 model_cfg.name = "tf_efficientnet_b0_ns"
 model_cfg.pretrained = True
 model_cfg.num_classes = 50
+model_cfg.ema_decay= 0.9999
 
 cfg.model = model_cfg
