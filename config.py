@@ -5,6 +5,7 @@ import os
 cfg = SimpleNamespace(**{})
 
 cfg.project_name = "yonsei-cv-2025"
+cfg.exp_name = "efficientnet_b0_randomcrop"
 cfg.seed = 42
 cfg.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 cfg.num_workers = 0
@@ -19,7 +20,14 @@ os.makedirs(cfg.output_dir, exist_ok=True)
 
 cfg.batch_size = 32
 cfg.img_size = 224
-cfg.val_fold_size = 0.2
+cfg.n_folds = 5
+
+cfg.epochs = 50
+cfg.lr = 1e-4
+cfg.min_lr = 1e-6
+cfg.weight_decay = 1e-4
+cfg.max_grad_norm = 1.0
+cfg.use_amp = True
 
 model_cfg = SimpleNamespace(**{})
 model_cfg.name = "tf_efficientnet_b0_ns"
