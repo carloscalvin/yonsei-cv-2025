@@ -12,11 +12,13 @@ cfg.num_workers = 0
 
 cfg.root_dir = os.getcwd()
 cfg.images_dir = os.path.join(cfg.root_dir, "datasets", "images")
+cfg.cropped_dir = os.path.join(cfg.root_dir, "datasets", "images_cropped_square")
 cfg.train_csv_path = os.path.join(cfg.root_dir, "datasets", "train_anno.csv") 
 cfg.test_csv_path = os.path.join(cfg.root_dir, "datasets", "test_subm.csv")
 cfg.output_dir = os.path.join(cfg.root_dir, "outputs")
 
 os.makedirs(cfg.output_dir, exist_ok=True)
+os.makedirs(cfg.cropped_dir, exist_ok=True)
 
 cfg.batch_size = 64
 cfg.img_size = 224
