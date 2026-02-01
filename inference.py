@@ -60,15 +60,18 @@ def inference():
     print("Iniciando inferencia (Ensemble)...")
     final_preds = []
 
-    for images, _ in tqdm(test_loader, desc="Procesando Test"):
+    for images, _ in tqdm(test_loader, desc="TTA Inference"):
         images = images.to(device)
-
+        images_flip = torch.flip(images, dims=[3])
         batch_probs = torch.zeros(images.shape[0], cfg.model.num_classes).to(device)
-        
+
         for model in models:
             outputs = model(images)
             probs = torch.softmax(outputs, dim=1)
-            batch_probs += probs
+            outputs_flip = model(images_flip)
+            probs_flip = torch.softmax(outputs_flip, dim=1)
+            avg_probs = (probs + probs_flip) / 2.0            
+            batch_probs += avg_probs
 
         batch_probs /= len(models)
         
