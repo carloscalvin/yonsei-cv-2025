@@ -108,14 +108,12 @@ def run_fold(fold, df, train_idx, val_idx):
     criterion = nn.CrossEntropyLoss()
     scaler = GradScaler(enabled=cfg.use_amp)
 
-    scheduler = torch.optim.lr_scheduler.OneCycleLR(
+    total_steps = len(train_loader) * cfg.epochs
+    
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
         optimizer, 
-        max_lr=cfg.lr, 
-        epochs=cfg.epochs, 
-        steps_per_epoch=len(train_loader),
-        pct_start=0.1,
-        div_factor=25.0,
-        final_div_factor=100.0
+        T_max=total_steps, 
+        eta_min=cfg.min_lr
     )
 
     run_name = f"{cfg.model.name}_fold{fold+1}"
