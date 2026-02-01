@@ -29,11 +29,8 @@ class BirdDataset(Dataset):
         return image, label
 
 def get_transforms(data='train', img_size=224):
-    resize_target = int(img_size * 1.15)
     if data == 'train':
         return A.Compose([
-            A.SmallestMaxSize(max_size=resize_target),
-            A.RandomCrop(height=img_size, width=img_size),
             A.HorizontalFlip(p=0.5),
             A.ShiftScaleRotate(shift_limit=0.05, scale_limit=0.05, rotate_limit=15, p=0.5),
             A.CoarseDropout(max_holes=8, max_height=16, max_width=16, p=0.2),
@@ -47,8 +44,6 @@ def get_transforms(data='train', img_size=224):
         ])
     elif data == 'valid':
         return A.Compose([
-            A.SmallestMaxSize(max_size=resize_target),
-            A.CenterCrop(height=img_size, width=img_size),
             A.Normalize(
                 mean=[0.485, 0.456, 0.406], 
                 std=[0.229, 0.224, 0.225], 

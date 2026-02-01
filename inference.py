@@ -39,7 +39,7 @@ def inference():
 
     test_dataset = BirdDataset(
         test_df, 
-        cfg.images_dir, 
+        cfg.cropped_dir, 
         transform=get_transforms('valid', cfg.img_size)
     )
     
