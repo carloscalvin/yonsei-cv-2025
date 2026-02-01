@@ -59,6 +59,7 @@ def inference():
 
     print("Iniciando inferencia (Ensemble)...")
     final_preds = []
+    final_confs = []
 
     for images, _ in tqdm(test_loader, desc="TTA Inference"):
         images = images.to(device)
@@ -74,13 +75,14 @@ def inference():
             batch_probs += avg_probs
 
         batch_probs /= len(models)
-        
-        _, predicted_labels = torch.max(batch_probs, 1)
+        batch_confs, predicted_labels = torch.max(batch_probs, 1)
 
         final_preds.extend(predicted_labels.cpu().numpy())
+        final_confs.extend(batch_confs.cpu().numpy())
 
     test_df['cls'] = final_preds
-    
+    test_df['confidence'] = final_confs
+
     submission_path = os.path.join(cfg.output_dir, "submission.csv")
     test_df.to_csv(submission_path, index=False)
     
