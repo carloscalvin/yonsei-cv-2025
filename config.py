@@ -5,7 +5,7 @@ import os
 cfg = SimpleNamespace(**{})
 
 cfg.project_name = "yonsei-cv-2025"
-cfg.exp_name = "efficientnet_b0_randomcrop-run2"
+cfg.exp_name = "resnet34_torchvision_randomcrop-run3"
 cfg.seed = 42
 cfg.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 cfg.num_workers = 0
@@ -30,7 +30,7 @@ cfg.max_grad_norm = 1.0
 cfg.use_amp = True
 
 model_cfg = SimpleNamespace(**{})
-model_cfg.name = "tf_efficientnet_b0_ns"
+model_cfg.name = "resnet34_torchvision"
 model_cfg.pretrained = True
 model_cfg.num_classes = 50
 model_cfg.ema_decay= 0.997

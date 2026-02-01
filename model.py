@@ -1,15 +1,19 @@
 import torch
 import torch.nn as nn
-import timm
+import torchvision.models as models
 from copy import deepcopy
 
 class BirdModel(nn.Module):
     def __init__(self, model_name, num_classes, pretrained=True):
         super(BirdModel, self).__init__()
-        self.backbone = timm.create_model(
-            model_name, 
-            pretrained=pretrained, 
-            num_classes=num_classes
+
+        weights = models.ResNet34_Weights.DEFAULT if pretrained else None
+        self.backbone = models.resnet34(weights=weights)
+        self.in_features = self.backbone.fc.in_features
+
+        self.backbone.fc = nn.Sequential(
+            nn.Dropout(p=0.2), 
+            nn.Linear(self.in_features, num_classes)
         )
 
     def forward(self, x):
