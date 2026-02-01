@@ -5,7 +5,7 @@ import os
 cfg = SimpleNamespace(**{})
 
 cfg.project_name = "yonsei-cv-2025"
-cfg.exp_name = "resnet34_torchvision_randomcrop-run3"
+cfg.exp_name = "resnet34_torchvision_mixup_cutmix-run4"
 cfg.seed = 42
 cfg.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 cfg.num_workers = 0
@@ -28,6 +28,10 @@ cfg.min_lr = 1e-6
 cfg.weight_decay = 1e-4
 cfg.max_grad_norm = 1.0
 cfg.use_amp = True
+
+cfg.mixup_prob = 0.4
+cfg.cutmix_prob = 0.4
+cfg.mixup_alpha = 1.0
 
 model_cfg = SimpleNamespace(**{})
 model_cfg.name = "resnet34_torchvision"

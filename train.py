@@ -13,6 +13,7 @@ from tqdm import tqdm
 from config import cfg
 from dataset import BirdDataset, get_transforms
 from model import BirdModel, ModelEMA
+from augs import MixupCutmix
 
 def seed_everything(seed=42):
     os.environ['PYTHONHASHSEED'] = str(seed)
@@ -28,15 +29,26 @@ def train_one_epoch(model, ema_model, loader, optimizer, scheduler, criterion, d
     correct = 0
     total = 0
     
+    augmenter = MixupCutmix(
+        mixup_prob=cfg.mixup_prob, 
+        cutmix_prob=cfg.cutmix_prob, 
+        alpha=cfg.mixup_alpha
+    )
+
     pbar = tqdm(loader, desc="Train", leave=False)
     for images, labels in pbar:
         images, labels = images.to(device), labels.to(device)
         
         optimizer.zero_grad()
+
+        images, target_a, target_b, lam, type = augmenter(images, labels)
         
         with autocast(enabled=cfg.use_amp):
             outputs = model(images)
-            loss = criterion(outputs, labels)
+            if type != 'none':
+                loss = criterion(outputs, target_a) * lam + criterion(outputs, target_b) * (1. - lam)
+            else:
+                loss = criterion(outputs, labels)
             
         scaler.scale(loss).backward()
         scaler.unscale_(optimizer)
@@ -50,7 +62,7 @@ def train_one_epoch(model, ema_model, loader, optimizer, scheduler, criterion, d
         running_loss += loss.item() * images.size(0)
         _, predicted = outputs.max(1)
         total += labels.size(0)
-        correct += predicted.eq(labels).sum().item()
+        correct += predicted.eq(target_a).sum().item()
 
         if scheduler is not None:
             scheduler.step()
