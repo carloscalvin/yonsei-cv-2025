@@ -416,6 +416,5 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
-/datasets/
 /outputs/
 /wandb/
