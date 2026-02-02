@@ -81,7 +81,8 @@ def inference():
         final_confs.extend(batch_confs.cpu().numpy())
 
     test_df['cls'] = final_preds
-    test_df['confidence'] = final_confs
+    if cfg.debug:
+        test_df['confidence'] = final_confs
 
     submission_path = os.path.join(cfg.output_dir, "submission.csv")
     test_df.to_csv(submission_path, index=False)

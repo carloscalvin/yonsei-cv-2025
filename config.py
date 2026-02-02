@@ -9,6 +9,7 @@ cfg.exp_name = "resnet34_torchvision_size_448-run7"
 cfg.seed = 42
 cfg.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 cfg.num_workers = 0
+cfg.debug = False
 
 cfg.root_dir = os.getcwd()
 cfg.images_dir = os.path.join(cfg.root_dir, "datasets", "images")
