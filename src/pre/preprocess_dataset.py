@@ -68,7 +68,7 @@ def smart_process_image(model, image_path, output_folder, target_size=224):
     save_path = os.path.join(output_folder, filename)
     cv2.imwrite(save_path, final_img)
 
-def main():
+def preprocess():
     print(f"Cargando modelo YOLO...")
     model_path = 'outputs/yolov8n.pt' 
     if not os.path.exists(model_path):
@@ -88,6 +88,3 @@ def main():
         smart_process_image(model, img_path, cfg.cropped_dir, target_size=cfg.img_size)
     
     print("¡Proceso terminado!")
-
-if __name__ == "__main__":
-    main()
