@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 from PIL import Image
-from config import cfg
+from configs.config import cfg
 
 def run_eda():
     print(f"Cargando datos desde: {cfg.train_csv_path}")

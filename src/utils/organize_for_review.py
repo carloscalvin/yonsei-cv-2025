@@ -2,7 +2,7 @@ import os
 import shutil
 import pandas as pd
 from tqdm import tqdm
-from config import cfg
+from configs.config import cfg
 
 def organize_by_species():
     review_dir = os.path.join(os.path.dirname(cfg.cropped_dir), "manual_review_species")

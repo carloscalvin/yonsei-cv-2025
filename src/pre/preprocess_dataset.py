@@ -3,7 +3,7 @@ import cv2
 import glob
 from ultralytics import YOLO
 from tqdm import tqdm
-from config import cfg
+from configs.config import cfg
 
 def pad_to_square(img, color=(0, 0, 0)):
     h, w = img.shape[:2]

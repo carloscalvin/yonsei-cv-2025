@@ -4,9 +4,9 @@ import torch
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
-from config import cfg
-from dataset import BirdDataset, get_transforms
-from model import BirdModel
+from configs.config import cfg
+from data.dataset import BirdDataset, get_transforms
+from models.model import BirdModel
 
 def load_models(device):
     models = []

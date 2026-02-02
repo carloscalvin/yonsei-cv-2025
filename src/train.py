@@ -10,10 +10,10 @@ from sklearn.model_selection import StratifiedKFold
 import wandb
 from tqdm import tqdm
 
-from config import cfg
-from dataset import BirdDataset, get_transforms
-from model import BirdModel, ModelEMA
-from augs import MixupCutmix
+from configs.config import cfg
+from data.dataset import BirdDataset, get_transforms
+from models.model import BirdModel, ModelEMA
+from data.augs import MixupCutmix
 
 def seed_everything(seed=42):
     os.environ['PYTHONHASHSEED'] = str(seed)

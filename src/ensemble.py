@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 from collections import Counter
-from config import cfg
+from configs.config import cfg
 
 def ensemble_analysis_and_voting():
     files = {

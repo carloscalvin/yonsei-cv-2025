@@ -6,9 +6,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-from config import cfg
-from dataset import get_transforms
-from model import BirdModel
+from configs.config import cfg
+from data.dataset import get_transforms
+from models.model import BirdModel
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Herramienta de Diagnóstico Visual para Inferencia")
