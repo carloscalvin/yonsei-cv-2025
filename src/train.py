@@ -102,8 +102,8 @@ def run_fold(fold, df, train_idx, val_idx):
     df_train = df.iloc[train_idx].reset_index(drop=True)
     df_val = df.iloc[val_idx].reset_index(drop=True)
     
-    train_ds = BirdDataset(df_train, cfg.cropped_dir, transform=get_transforms('train', cfg.img_size))
-    val_ds = BirdDataset(df_val, cfg.cropped_dir, transform=get_transforms('valid', cfg.img_size))
+    train_ds = BirdDataset(df_train, cfg.images_dir, transform=get_transforms('train', cfg.img_size))
+    val_ds = BirdDataset(df_val, cfg.images_dir, transform=get_transforms('valid', cfg.img_size))
     
     train_loader = DataLoader(train_ds, batch_size=cfg.batch_size, shuffle=True, 
                               num_workers=cfg.num_workers, pin_memory=True, drop_last=True)

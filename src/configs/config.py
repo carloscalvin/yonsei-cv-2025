@@ -5,7 +5,7 @@ import os
 cfg = SimpleNamespace(**{})
 
 cfg.project_name = "yonsei-cv-2025"
-cfg.exp_name = "resnet34_torchvision_size_448-run7"
+cfg.exp_name = "resnet34_torchvision_initial_dataset-run9"
 cfg.seed = 42
 cfg.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 cfg.num_workers = 0
@@ -21,7 +21,7 @@ cfg.output_dir = os.path.join(cfg.root_dir, "outputs")
 os.makedirs(cfg.output_dir, exist_ok=True)
 os.makedirs(cfg.cropped_dir, exist_ok=True)
 
-cfg.batch_size = 64
+cfg.batch_size = 128
 cfg.img_size = 448
 cfg.n_folds = 5
 
